@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-#[Route('/program', name: 'program_')]
+#[Route('/program/', name: 'program_')]
 class ProgramController extends AbstractController
 {
     #[Route('/', name: 'homepage')]
@@ -18,11 +18,11 @@ class ProgramController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', methods: ['GET'], requirements: ['page'=>'\d+'], name : 'id')]
+    #[Route('{id}', methods: ['GET'], requirements: ['page'=>'\d+'], name : 'id')]
     public function show(int $id)
     {
 //        TODO render twig file
-        return $this->render('program/showId.html.twig', [
+        return $this->render('program/show.html.twig', [
             'id' => $id
         ]);
 }
