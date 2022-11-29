@@ -7,15 +7,28 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
+#[Route('/program', name: 'program_')]
 class ProgramController extends AbstractController
 {
-    #[Route('/program/', name: 'program')]
+    #[Route('/', name: 'homepage')]
     public function index(): Response
     {
         return $this->render('program/index.html.twig', [
             'website' => 'Wild ',
         ]);
     }
+
+    #[Route('/{id}', methods: ['GET'], requirements: ['page'=>'\d+'], name : 'id')]
+    public function show(int $id)
+    {
+//        TODO render twig file
+        return $this->render('program/showId.html.twig', [
+            'id' => $id
+        ]);
+}
+
+
+
 }
 
 
