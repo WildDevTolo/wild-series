@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% for categories in category %}
+        <h1>{{ categories.name }}</h1>
+        {% for prog in program %}
+
+        <h3>{{ prog.id }} {{ prog.title }}</h3>
+        <p>{{ prog.synopsis }}</p>
+
+
+    {% endfor %}
+    {% endfor %}
+
+{% endblock %}
