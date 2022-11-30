@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 30 nov. 2022 à 09:33
+-- Généré le : mer. 30 nov. 2022 à 10:24
 -- Version du serveur : 10.4.24-MariaDB
 -- Version de PHP : 8.1.6
 
@@ -28,8 +28,8 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `category` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+                            `id` int(11) NOT NULL,
+                            `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -37,11 +37,11 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`id`, `name`) VALUES
-(2, 'Action'),
-(3, 'Aventure'),
-(4, 'Comédie'),
-(5, 'Fantastique'),
-(6, 'Horreur');
+                                          (2, 'Action'),
+                                          (3, 'Aventure'),
+                                          (4, 'Comédie'),
+                                          (5, 'Fantastique'),
+                                          (6, 'Horreur');
 
 -- --------------------------------------------------------
 
@@ -50,9 +50,9 @@ INSERT INTO `category` (`id`, `name`) VALUES
 --
 
 CREATE TABLE `doctrine_migration_versions` (
-  `version` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
-  `executed_at` datetime DEFAULT NULL,
-  `execution_time` int(11) DEFAULT NULL
+                                               `version` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+                                               `executed_at` datetime DEFAULT NULL,
+                                               `execution_time` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -60,7 +60,8 @@ CREATE TABLE `doctrine_migration_versions` (
 --
 
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
-('DoctrineMigrations\\Version20221129143352', '2022-11-29 15:36:29', 204);
+                                                                                           ('DoctrineMigrations\\Version20221129143352', '2022-11-29 15:36:29', 204),
+                                                                                           ('DoctrineMigrations\\Version20221130090301', '2022-11-30 10:03:26', 86);
 
 -- --------------------------------------------------------
 
@@ -69,13 +70,13 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 --
 
 CREATE TABLE `messenger_messages` (
-  `id` bigint(20) NOT NULL,
-  `body` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `headers` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue_name` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` datetime NOT NULL,
-  `available_at` datetime NOT NULL,
-  `delivered_at` datetime DEFAULT NULL
+                                      `id` bigint(20) NOT NULL,
+                                      `body` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+                                      `headers` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+                                      `queue_name` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
+                                      `created_at` datetime NOT NULL,
+                                      `available_at` datetime NOT NULL,
+                                      `delivered_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -85,10 +86,11 @@ CREATE TABLE `messenger_messages` (
 --
 
 CREATE TABLE `program` (
-  `id` int(11) NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `synopsis` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `poster` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+                           `id` int(11) NOT NULL,
+                           `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                           `synopsis` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+                           `poster` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                           `category_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -99,19 +101,19 @@ CREATE TABLE `program` (
 -- Index pour la table `category`
 --
 ALTER TABLE `category`
-  ADD PRIMARY KEY (`id`);
+    ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `doctrine_migration_versions`
 --
 ALTER TABLE `doctrine_migration_versions`
-  ADD PRIMARY KEY (`version`);
+    ADD PRIMARY KEY (`version`);
 
 --
 -- Index pour la table `messenger_messages`
 --
 ALTER TABLE `messenger_messages`
-  ADD PRIMARY KEY (`id`),
+    ADD PRIMARY KEY (`id`),
   ADD KEY `IDX_75EA56E0FB7336F0` (`queue_name`),
   ADD KEY `IDX_75EA56E0E3BD61CE` (`available_at`),
   ADD KEY `IDX_75EA56E016BA31DB` (`delivered_at`);
@@ -120,7 +122,8 @@ ALTER TABLE `messenger_messages`
 -- Index pour la table `program`
 --
 ALTER TABLE `program`
-  ADD PRIMARY KEY (`id`);
+    ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_92ED778412469DE2` (`category_id`);
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
@@ -130,19 +133,29 @@ ALTER TABLE `program`
 -- AUTO_INCREMENT pour la table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT pour la table `messenger_messages`
 --
 ALTER TABLE `messenger_messages`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+    MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `program`
 --
 ALTER TABLE `program`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `program`
+--
+ALTER TABLE `program`
+    ADD CONSTRAINT `FK_92ED778412469DE2` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
