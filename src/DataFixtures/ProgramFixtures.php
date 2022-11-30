@@ -21,6 +21,9 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
         ],
         'Friends' => [
             'The life of 6 friends in NYC' => 'category_Comédie',
+        ],
+        'Walking Dead' => [
+            'Apocalypse on earth, zombies everywhere' => 'category_Horreur',
         ]
     ];
 
