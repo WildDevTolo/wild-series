@@ -11,7 +11,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
 {
     const PROGRAM = [
         'Game of Thrones' => [
-            'Winter is coming' => 'category_Fantastique',
+            'Let us fight for the Iron Throne' => 'category_Fantastique',
         ],
         'Lord of the rings' => [
             'One ring to govern them all' => 'category_Fantastique',
@@ -38,6 +38,8 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
         $program->setSynopsis($key);
         $program->setCategory($this->getReference($value));
         $manager->persist($program);
+        $this->addReference('program_' . $program->getId(), $program);
+
             }
         }
 

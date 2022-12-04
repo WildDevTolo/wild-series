@@ -4,11 +4,11 @@
 
     <h1>My program : {{ program.title }}</h1>
     <h3>Category : {{program.category.name }}</h3>
-    <h4>Seasons :</h4>
-    <ul>
-        <li>{{ dump(program.seasons) }}</li>
-    </ul>
+    <h4>Seasons : {{ season.number}} </h4>
+    <h5> Episodes : {{ episode.name }}</h5>
+
 
     <p>Synopsis : {{ program.synopsis }}</p>
+
 
 {% endblock %}
