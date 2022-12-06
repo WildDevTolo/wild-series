@@ -5,10 +5,11 @@
     <h1>My program : {{ program.title }}</h1>
     <h3>Category : {{program.category.name }}</h3>
     <h4>Seasons :</h4>
-    <ul>
-        <li>{{ dump(program.seasons) }}</li>
+    <ul> {% for seas in season %}
+    <li> <a href="{{ path("program_season_show", { programId : program.id, seasonId : seas.id}) }}">{{ seas.description }} - {{ seas.year }}</li></a>
+        {% endfor %}
+
     </ul>
 
     <p>Synopsis : {{ program.synopsis }}</p>
-
 {% endblock %}

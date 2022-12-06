@@ -7,6 +7,8 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
+
+
 class ProgramFixtures extends Fixture implements DependentFixtureInterface
 {
     const PROGRAM = [
@@ -31,14 +33,16 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
     {
 
         foreach (self::PROGRAM as $name => $content) {
+            $program = new Program();
+            $this->addReference('program_' . $program->getId(), $program);
+            $manager->persist($program);
+
             foreach ($content as $key => $value) {
 
-        $program = new Program();
         $program->setTitle($name);
         $program->setSynopsis($key);
         $program->setCategory($this->getReference($value));
         $manager->persist($program);
-        $this->addReference('program_' . $program->getId(), $program);
 
             }
         }
